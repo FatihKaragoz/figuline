@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block externalCSS %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/contact_styles.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/contact_responsive.css' %}">
+{% endblock %}
+
+{% block contain %}
+    {% for abo in about %}
+	<div class="container contact_container">
+		<div class="row">
+			<div class="col">
+				<!-- Breadcrumbs -->
+				<div class="breadcrumbs d-flex flex-row align-items-center">
+					<ul>
+						<li><a href="{% url 'home' %}">Anasayfa</a></li>
+						<li class="active"><a href="{% url 'aboutus' %}"><i class="fa fa-angle-right" aria-hidden="true"></i>Hakkimizda</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!-- Map Container -->
+		<div class="row">
+			<div class="col">
+				<img  style="width: 100%" src="{{ abo.image.url }}">
+			</div>
+		</div>
+		<!-- Contact Us -->
+		<div class="row" style="margin-top: 3rem;">
+			<div class="col-lg-10 contact_col">
+				<div class="contact_contents">
+					<h1>Hakkımızda</h1>
+					<p>{{ abo.text1 }}</p>
+                    <br>
+					<p>{{ abo.text2 }}</p>
+					<br>
+                    <p>{{ abo.text3 }}</p>
+				</div>
+				<!-- Follow Us -->
+				<div class="follow_us_contents">
+					<h1>Follow Us</h1>
+					<ul class="social d-flex flex-row">
+						<li><a href="#" style="background-color: #3a61c9"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+						<li><a href="#" style="background-color: #41a1f6"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+						<li><a href="#" style="background-color: #fb4343"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+						<li><a href="#" style="background-color: #8f6247"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+    {% endfor %}
+{% endblock %}
+
+
+{% block externalJS %}
+    <script src="{% static 'js/contact_custom.js' %}"></script>
+{% endblock %}

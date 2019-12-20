@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block externalCSS %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/contact_styles.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/contact_responsive.css' %}">
+{% endblock %}
+
+{% block contain %}
+    {% for con in contact %}
+
+	<div class="container contact_container">
+		<div class="row">
+			<div class="col">
+
+				<!-- Breadcrumbs -->
+
+				<div class="breadcrumbs d-flex flex-row align-items-center">
+					<ul>
+						<li><a href="{% url 'home' %}">Anasayfa</a></li>
+						<li class="active"><a href="{% url 'contact' %}"><i class="fa fa-angle-right" aria-hidden="true"></i>İletişim</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<!-- Map Container -->
+
+		<div class="row">
+			<div class="col">
+				<div id="google_map">
+					<div class="map_container">
+						<div id="map"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Contact Us -->
+
+		<div class="row">
+
+			<div class="col-lg-6 contact_col">
+				<div class="contact_contents">
+					<h1>İletişime geçin</h1>
+					<p>{{ con.text1 }}</p>
+					<div>
+
+						<b>Telefon : </b><a href="tel:{{ con.phone }}">{{ con.phone }}</a><br>
+						<b>E-mail : </b> {{ con.email }}<br>
+					</div>
+                    <b> Adres : </b> {{ con.address  }} <br>
+				</div>
+
+				<!-- Follow Us -->
+
+			</div>
+            <div class="col-lg-6 contact_col">
+			<div class="follow_us_contents">
+					<h1>Follow Us</h1>
+					<ul class="social d-flex flex-row">
+						<li><a href="#" style="background-color: #3a61c9"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+						<li><a href="#" style="background-color: #41a1f6"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+						<li><a href="#" style="background-color: #fb4343"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+						<li><a href="#" style="background-color: #8f6247"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+					</ul>
+			</div>
+            </div>
+		</div>
+	</div>
+    {% endfor %}
+{% endblock %}
+
+
+{% block externalJS %}
+    {% for con in contact %}
+
+    <script src="{% static 'js/contact_custom.js' %}"></script>
+    <script>
+        // Initialize and add the map
+        function initMap() {
+          // The location of Uluru
+          var uluru = {lat: {{ con.coordinatelat }}, lng: {{ con.coordinatelong }} };
+          // The map, centered at Uluru
+          var map = new google.maps.Map(
+              document.getElementById('map'), {zoom: 4, center: uluru});
+          // The marker, positioned at Uluru
+          var marker = new google.maps.Marker({position: uluru, map: map});
+        }
+    </script>
+        <!--Load the API from the specified URL
+        * The async attribute allows the browser to render the page while the API loads
+        * The key parameter will contain your own API key (which is not needed for this tutorial)
+        * The callback parameter executes the initMap() function
+        -->
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxxVDRbgr32g_TpJhbwUTNc7kv6jnRHLI&callback=initMap">
+    </script>
+        {% endfor %}
+
+{% endblock %}

@@ -1,0 +1,201 @@
+
+{% extends "base.html" %}
+{% load static %}
+{% block externalCSS %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/slider.css' %}">
+{% endblock %}
+
+{% block contain %}
+
+    <div class="demo-cont">
+      <!-- slider start -->
+      <div class="fnc-slider example-slider">
+        <div class="fnc-slider__slides">
+          <!-- slide start -->
+          <div class="fnc-slide m--blend-green m--active-slide">
+            <div class="fnc-slide__inner">
+              <div class="fnc-slide__mask">
+                <div class="fnc-slide__mask-inner"></div>
+              </div>
+              <div class="fnc-slide__content">
+                <h3 class="fnc-slide__heading">
+                  <div class="fnc-slide__heading-line">
+                    <span>Figuline</span>
+                  </div>
+                </h3>
+                <button type="button" class="fnc-slide__action-btn">
+                    <a href="{% url 'products' 'all' %}"> Ürünlerimizi keşfedin </a>
+{#                  <span data-text="Hemen keşfet!">Ürünlerimizi keşfedin</span>#}
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- slide end -->
+          <!-- slide start -->
+          <div class="fnc-slide m--blend-dark">
+            <div class="fnc-slide__inner">
+              <div class="fnc-slide__mask">
+                <div class="fnc-slide__mask-inner"></div>
+              </div>
+              <div class="fnc-slide__content">
+                <h2 class="fnc-slide__heading">
+                  <div class="fnc-slide__heading-line">
+                    <span>Toprak</span>
+                  </div>
+                  <div class="fnc-slide__heading-line">
+                    <span>Sanatı</span>
+                  </div>
+                </h2>
+                <button type="button" class="fnc-slide__action-btn">
+                    <a href="{% url 'products' 'all' %}"> Ürünlerimizi keşfedin </a>
+{#                  <span data-text="Credits">Ürünlerimiz keşfedin</span>/#}
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- slide end -->
+          <!-- slide start -->
+          <div class="fnc-slide m--blend-red">
+            <div class="fnc-slide__inner">
+              <div class="fnc-slide__mask">
+                <div class="fnc-slide__mask-inner"></div>
+              </div>
+              <div class="fnc-slide__content">
+                <h2 class="fnc-slide__heading">
+                  <div class="fnc-slide__heading-line">
+                    <span>Duygularınızın motifleri</span>
+                  </div>
+                  <div class="fnc-slide__heading-line">
+                    <span>Mutfağınızın ritmi</span>
+                  </div>
+                </h2>
+                <button type="button" class="fnc-slide__action-btn">
+                    <a href="{% url 'products' 'all' %}"> Ürünlerimizi keşfedin </a>
+{#                  <span data-text="Credits">Ürünlerimiz keşfedin</span>#}
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- slide end -->
+        </div>
+        <nav class="fnc-nav">
+          <div class="fnc-nav__bgs">
+            <div class="fnc-nav__bg m--navbg-green m--active-nav-bg"></div>
+            <div class="fnc-nav__bg m--navbg-dark"></div>
+            <div class="fnc-nav__bg m--navbg-red"></div>
+            <div class="fnc-nav__bg m--navbg-blue"></div>
+          </div>
+          <div class="fnc-nav__controls">
+            <button class="fnc-nav__control">
+                Ⅰ
+              <span class="fnc-nav__control-progress"></span>
+            </button>
+            <button class="fnc-nav__control">
+                Ⅱ
+                <span class="fnc-nav__control-progress"></span>
+            </button>
+            <button class="fnc-nav__control">
+                Ⅲ
+                <span class="fnc-nav__control-progress"></span>
+            </button>
+
+          </div>
+        </nav>
+      </div>
+      <!-- slider end -->
+      <div class="demo-cont__credits">
+        <div class="demo-cont__credits-close"></div>
+        <h2 class="demo-cont__credits-heading">Figuline</h2>
+        <img src="//s3-us-west-2.amazonaws.com/s.cdpn.io/142996/profile/profile-512_5.jpg" alt="" class="demo-cont__credits-img" />
+        <h3 class="demo-cont__credits-name">Figuline</h3>
+        <a href="#" target="_blank" class="demo-cont__credits-link">•</a>
+        <a href="#" target="_blank" class="demo-cont__credits-link">•</a>
+        <a href="#" target="_blank" class="demo-cont__credits-link">•</a>
+{#        <h2 class="demo-cont__credits-heading">Figuline</h2>#}
+{#        <a href="#" target="_blank" class="demo-cont__credits-link">Concept by Kreativa Studio</a>#}
+{#        <h4 class="demo-cont__credits-blend">Global Blend Mode</h4>#}
+{#        <div class="colorful-switch">#}
+{#          <input type="checkbox" class="colorful-switch__checkbox js-activate-global-blending" id="colorful-switch-cb" />#}
+{#          <label class="colorful-switch__label" for="colorful-switch-cb">#}
+{#            <span class="colorful-switch__bg"></span>#}
+{#            <span class="colorful-switch__dot"></span>#}
+{#            <span class="colorful-switch__on">#}
+{#              <span class="colorful-switch__on__inner"></span>#}
+{#            </span>#}
+{#            <span class="colorful-switch__off"></span>#}
+{#          </label>#}
+{#        </div>#}
+      </div>
+    </div>
+
+	<!-- Banner -->
+
+	<div class="banner">
+		<div class="container">
+			<div class="row">
+                {% for cat in categories %}
+                    <div class="col-md-4 mt-4">
+                        <div class="banner_item align-items-center" style="background-image:url({{ cat.catImage.url }})">
+                            <div class="banner_category">
+                                <a href="{% url 'products' cat.cat_id %}">{{ cat.categoryExp }}</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+			</div>
+		</div>
+	</div>
+
+	<!-- New Arrivals -->
+
+	<div class="new_arrivals">
+		<div class="container">
+			<div class="row">
+				<div class="col text-center">
+					<div class="section_title new_arrivals_title">
+						<h2>Yeni ürünlerimiz</h2>
+					</div>
+				</div>
+			</div>
+			<div class="row align-items-center">
+				<div class="col text-center">
+					<div class="new_arrivals_sorting">
+						<ul class="arrivals_grid_sorting clearfix button-group filters-button-group">
+                            <li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center active is-checked" data-filter="*">all</li>
+                            {% for cat in categories %}
+                            <li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center" data-filter=".{{ cat.categoryName }}">{{ cat.categoryExp }}</li>
+						    {% endfor %}
+                        </ul>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<div class="product-grid" data-isotope='{ "itemSelector": ".product-item", "layoutMode": "fitRows" }'>
+
+						<!-- Product 1 -->
+                        {% for new in newArrivals %}
+                            <div class="product-item {{ new.urun.cat.categoryName }}">
+                                <div class="product discount product_filter">
+                                    <div class="product_image">
+                                        <img src="{{ new.urun.image1.url }}" alt="">
+                                    </div>
+                                    <div class="product_info">
+                                        <h6 class="product_name"><a href="{% url 'product' new.urun.pro_id  %}">{{ new.urun.productCaption }}</a></h6>
+                                    </div>
+                                </div>
+                                <div class="red_button add_to_cart_button" style="width: 100%"><a href="{% url 'product' new.urun.pro_id %}">İncele</a></div>
+                            </div>
+                        {% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{% endblock %}
+
+{% block externalJS %}
+    <script src="{% static 'js/slider.js' %}"></script>
+{% endblock %}

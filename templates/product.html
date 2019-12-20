@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+{% load static %}
+{% block externalCSS %}
+<link rel="stylesheet" type="text/css" href="{% static 'styles/single_styles.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'styles/single_responsive.css' %}">
+{#<link rel="stylesheet" href="{% static 'styles/modal.min.css' %}" />#}
+<link rel="stylesheet" href="{% static 'styles/jquery.galpop.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'styles/categories_styles.css' %}">
+<link rel="stylesheet" type="text/css" href="{%  static 'styles/categories_responsive.css' %}">
+
+{% endblock %}
+{% block contain %}
+    {% if control == 'all' %}
+    	<div class="container product_section_container">
+            <div class="row">
+                <div class="col product_section clearfix">
+                    <!-- Breadcrumbs -->
+                    <div class="breadcrumbs d-flex flex-row align-items-center">
+                        <ul>
+                            <li><a href="{% url 'home' %}">Ansayfa</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Sidebar -->
+
+                    <div class="sidebar">
+                        <div class="sidebar_section">
+                            <div class="sidebar_title">
+                                <h5>Product Category</h5>
+                            </div>
+                            <ul class="sidebar_categories">
+                                <li {%  if category == 'all' %} class="active" {% endif %}><a href="{% url 'products' 'all' %}">{% if category == 'all' %}<span><i class="fa fa-angle-double-right" aria-hidden="true"></i></span>{% endif %}Hepsi</a></li>
+                                {% for cat in categories %}
+                                <li {%  if cat.cat_id == category %} class="active" {% endif %}><a href="{% url 'products' cat.cat_id %}">{% if cat.cat_id == category %}<span><i class="fa fa-angle-double-right" aria-hidden="true"></i></span>{% endif %}{{ cat.categoryName }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Main Content -->
+
+                    <div class="main_content">
+
+                        <!-- Products -->
+
+                        <div class="products_iso">
+                            <div class="row">
+                                <div class="col">
+
+                                    <!-- Product Sorting -->
+
+                                    <div class="product_sorting_container product_sorting_container_top">
+                                        <ul class="product_sorting">
+                                            <li>
+                                                <span class="type_sorting_text">Default Sorting</span>
+                                                <i class="fa fa-angle-down"></i>
+                                                <ul class="sorting_type">
+                                                    <li class="type_sorting_btn" data-isotope-option='{ "sortBy": "original-order" }'><span>Default Sorting</span></li>
+                                                    <li class="type_sorting_btn" data-isotope-option='{ "sortBy": "name" }'><span>Product Name</span></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <!-- Product Grid -->
+                                    <div class="product-grid">
+                                        <!-- Product  -->
+                                        {% for pro in products %}
+                                                <div class="product-item {{ pro.cat.categoryName}}">
+                                                    <div class="product discount product_filter">
+                                                        <div class="product_image">
+                                                            <img src="{{ pro.image1.url }}" alt="">
+                                                        </div>
+                                                        <div class="favorite favorite_left"></div>
+                                                        <div class="product_info">
+                                                            <h6 class="product_name"><a href="{% url 'product' pro.pro_id %}">{{ pro.productCaption }}</a></h6>
+                                                        </div>
+                                                    </div>
+                                                    <div class="red_button add_to_cart_button"><a href="{% url 'product' pro.pro_id %}">İncele</a></div>
+                                                </div>
+                                        {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    {% endif %}
+    {% if control == '1' %}
+        <div class="container single_product_container">
+            {% for pro in product %}
+                <div class="row">
+                    <div class="col-lg-7">
+                        <div class="single_product_pics">
+                            <div class="row">
+                                <div class="col-lg-3 thumbnails_col order-lg-1 order-2">
+                                    <div class="single_product_thumbnails">
+                                        <ul>
+
+                                            <li data-galpop-group="multiple" href="{{ pro.image1.url }}"><img style="height: 100%" src="{{ pro.image1.url }}" alt="" data-image="{{ pro.image1.url }}" ></li>
+                                            <li class="active"><img style="height: 100%" src="{{ pro.image2.url }}" alt="" data-image="{{ pro.image2.url }}" ></li>
+                                            <li data-galpop-group="multiple" href="{{ pro.image1.url }}"><img style="height: 100%" src="{{ pro.image3.url }}" alt="" data-image="{{ pro.image3.url }}" ></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 image_col order-lg-2 order-1">
+
+                                    <div class="single_product_image">
+                                        <div class="single_product_image_background" style="background-image:url({{ pro.image2.url }})" data-galpop-group="multiple"  href="{{ pro.image2.url }}"></div></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="product_details">
+                            <div class="product_details_title">
+                                <h2>{{ pro.productCaption }}</h2>
+                                <p>{{ pro.productContain }}</p>
+                            </div>
+
+                            <ul class="star_rating">
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block externalJS %}
+    <script src="{% static 'js/single_custom.js' %}"></script>
+    <script src="{% static 'js/categories_custom.js' %}"></script>
+{#    <script src="{% static 'js/modal.min.js' %}"></script>#}
+    <script src="{% static 'js/jquery.galpop.min.js' %}"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+	    $('.galpop-multiple').galpop();
+    });
+    </script>
+{% endblock %}
